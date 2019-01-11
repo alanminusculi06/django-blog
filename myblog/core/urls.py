@@ -6,5 +6,5 @@ app_name = 'core'
 
 urlpatterns = [
      path('', views.post_list, name='post_list'),     
-     path('post/<int:pk>/', views.post_detail, name='post'),
+     path('artigo/<int:pk>/', views.post_detail, name='artigo'),
 ]
