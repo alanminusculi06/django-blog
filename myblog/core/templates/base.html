@@ -12,6 +12,10 @@
 <body>
     <div class="page-header">
         <h1><a href="/">My Blog</a></h1>
+        {% if user.is_authenticated %}
+        <h1>|</h1>
+        <h1><a href="{% url 'core:post_new' %}">Novo Post</a></h1>
+        {% endif %}
     </div>
     <div class="content container">
         <div class="row">
