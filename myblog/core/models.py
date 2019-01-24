@@ -10,6 +10,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Criado em')
     published_date = models.DateTimeField(blank=True, null=True, verbose_name='Publicado em')
     image = models.ImageField(upload_to='posts/images', verbose_name='Imagem', null=True, blank=True)
+    slug = models.SlugField('Link para o post')
 
     def publish(self):
         self.published_date = timezone.now()
@@ -17,3 +18,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('core:post_detail', kwargs={'slug': self.slug})
+
+    class Meta:
+        verbose_name = 'Publicação'
+        verbose_name_plural = 'Publicações'
