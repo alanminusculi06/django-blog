@@ -1,19 +1,35 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<div class="post">
-    {% if post.published_date %}
-    <div class="date">
-        {{ post.published_date }}
+{% load static %}
+
+{% block header %}
+{% if post.image %}
+<header class="masthead" style="background-image: url('{{ post.image.url }}')">
+{% else %}
+<header class="masthead" style="background-image: url('../../static/img/home-bg.jpg')">
+{% endif %}
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>{{ post.title }}</h1>                    
+                    <span class="meta">Publicado por {{ post.author }} em {{ post.published_date }}</span>
+                </div>
+            </div>
+        </div>
     </div>
-    {% endif %}
-    <h2>{{ post.title }}</h2>
-    {% if user.is_authenticated %}
-    <h2>|</h2>
-    <a href="{% url 'core:post_edit' post.pk %}">
-        <h2>Editar</h2>
-    </a>
-    {% endif %}
-    <p>{{ post.text|linebreaksbr }}</p>
-</div>
+</header>
+{% endblock %}
+
+{% block content %}
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">                
+                <p>{{ post.text|linebreaksbr }}</p>
+            </div>
+        </div>
+    </div>
+</article>
 {% endblock %}

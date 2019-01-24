@@ -1,21 +1,40 @@
 {% extends 'base.html' %}
 
-{% block content %}
-{% for post in posts %}
-<div class="content container">
-    <div class="row">
-        <div class="col-md-8">
-            {% for post in posts %}
-            <div class="post">
-                <div class="date">
-                    <p>publicado em: {{ post.published_date }}</p>
+{% block header %}
+<header class="masthead" style="background-image: url('static/img/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Alan's Blog</h1>
+                    <span class="subheading">Aqui vai uma descrição para o blog</span>
                 </div>
-                <h1><a href="{% url 'core:post_detail' post.pk %}">{{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaksbr }}</p>
             </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for post in posts %}
+            <div class="post-preview">
+                <a href="{% url 'core:post_detail' post.pk %}">
+                    <h2 class="post-title">
+                        {{ post.title }}
+                    </h2>
+                    <h3 class="post-subtitle">
+                        {{ post.subtitle }}
+                    </h3>
+                </a>
+                <p class="post-meta">Publicado por {{ post.author }} em {{ post.published_date }}</p>
+            </div>
+            <hr>
             {% endfor %}
         </div>
     </div>
 </div>
-{% endfor %}
 {% endblock %}

@@ -2,13 +2,11 @@ from django.shortcuts import render, redirect, reverse, HttpResponse
 from django.utils import timezone
 from .models import Post
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm
+from .forms import PostForm, Contact
 
 
 def post_list(request):
-    posts = Post.objects.filter(
-        published_date__lte=timezone.now()).order_by('published_date')
-    # posts = Post.objects.all()
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'post_list.html', {'posts': posts})
 
 
@@ -17,30 +15,25 @@ def post_detail(request, pk):
     return render(request, 'post_detail.html', {'post': post})
 
 
-def post_new(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect(reverse('core:post_detail', args=[post.pk]))
-    else:
-        form = PostForm()
-    return render(request, 'post_edit.html', {'form': form})
+def about(request):
+    template_name = "about.html"
+    return render(request, template_name)
 
 
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+def contact(request):
+    template_name = "contact.html"
+    context = {}
+    if request.method == 'POST':
+        form = Contact(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect(reverse('core:post_detail', args=[post.pk]))
+            try:
+                context['is_valid'] = True
+                form.send_mail()
+                form = Contact()
+            except:
+                context['is_valid'] = False
+                context['erro'] = True           
     else:
-        form = PostForm(instance=post)
-    return render(request, 'post_edit.html', {'form': form})
+        form = Contact()
+    context['form'] = form
+    return render(request, template_name, context)

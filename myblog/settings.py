@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myblog.core'
+    'myblog.core',
+    'phonenumber_field',
+
 ]
 
 MIDDLEWARE = [
@@ -120,3 +122,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'myblog', 'media')
+MEDIA_URL = '/media/'
+
+#EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'Alan <alan.m182@gmail.com>'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'alan.m182@gmail.com'
+EMAIL_HOST_PASSWORD = 'su9cv^Po'
+EMAIL_PORT = 587
+CONTACT_EMAIL = 'alan.m182@gmail.com'

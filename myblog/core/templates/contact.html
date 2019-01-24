@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block header %}
+<header class="masthead" style="background-image: url('../../static/img/contact-bg.jpg')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="page-heading">
+          <h1>Contato</h1>
+          <span class="subheading">Dúvidas? Nós temos as respostas.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      {% if is_valid %}
+      <p class="help-block text-success">Mensagem enviada!</p>
+      {% endif %}
+      {% if erro %}
+      <p class="help-block text-danger">Ocorreu um erro no envio do e-mail!</p>
+      {% endif %}
+      <p>Preencha o formulário abaixo para enviar uma mensage. Responderemos o mais breve possível.</p>
+      <div class="control-group">
+        <form class="pure-form pure-form-aligned" method="POST">
+          {% csrf_token %}
+          <fieldset>
+            {% for field in form %}
+            <div class="form-group floating-label-form-group controls">
+              {{ field.label_tag }}
+              {{ field }}
+              {% if field.errors %}
+              {% for error in field.errors %}
+              <p class="help-block text-danger">{{ error }}</p>
+              {% endfor %}
+              {% endif %}
+            </div>
+            {% endfor %}
+            <br>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" id="sendMessageButton">Enviar</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -3,11 +3,13 @@ from django.utils import timezone
 
 
 class Post(models.Model):
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Autor')
+    title = models.CharField(max_length=200, verbose_name='Título')
+    subtitle = models.CharField(max_length=75, default='', verbose_name='Sub título')
+    text = models.TextField(verbose_name='Texto')
+    created_date = models.DateTimeField(default=timezone.now, verbose_name='Criado em')
+    published_date = models.DateTimeField(blank=True, null=True, verbose_name='Publicado em')
+    image = models.ImageField(upload_to='posts/images', verbose_name='Imagem', null=True, blank=True)
 
     def publish(self):
         self.published_date = timezone.now()
