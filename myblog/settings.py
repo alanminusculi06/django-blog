@@ -131,6 +131,6 @@ DEFAULT_FROM_EMAIL = 'Alan <alan.m182@gmail.com>'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'alan.m182@gmail.com'
-EMAIL_HOST_PASSWORD = 'su9cv^Po'
+EMAIL_HOST_PASSWORD = 'senha'
 EMAIL_PORT = 587
 CONTACT_EMAIL = 'alan.m182@gmail.com'
