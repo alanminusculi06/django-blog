@@ -1,7 +1,6 @@
 from django import forms
 from django.core.mail import send_mail
 from django.conf import settings
-from phonenumber_field.modelfields import PhoneNumberField
 from .mail import send_mail_template
 from .models import Post
 
