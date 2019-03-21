@@ -1,8 +1,7 @@
 import os
+import django_heroku
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -13,8 +12,7 @@ SECRET_KEY = 'p9pya!n9t2__du#dte3y$!fg9g@(i=-(xx(fif1jg(8hezspi)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -26,7 +24,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myblog.core',
-    #'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -37,6 +34,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'myblog.urls'
@@ -112,6 +110,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'myblog', 'media')
 MEDIA_URL = '/media/'
 
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 #EMAIL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Alan <alan.m182@gmail.com>'
@@ -121,3 +126,8 @@ EMAIL_HOST_USER = 'alan.m182@gmail.com'
 EMAIL_HOST_PASSWORD = 'senha'
 EMAIL_PORT = 587
 CONTACT_EMAIL = 'alan.m182@gmail.com'
+
+# Heroku
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
