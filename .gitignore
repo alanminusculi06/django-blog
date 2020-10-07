@@ -1,6 +1,6 @@
 .env/
 .vscode/
-./static/
+static/
 media/
 ./myblog/media
 postgres_data_dev
