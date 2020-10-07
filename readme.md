@@ -27,6 +27,3 @@ docker-compose up -d --build
 docker exec -it app python manage.py createsuperuser
 ```
 - Acesse [http://localhost:8000/admin](http://localhost:8000/admin)
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)

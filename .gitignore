@@ -2,7 +2,6 @@
 .vscode/
 static/
 media/
-./myblog/media
 postgres_data_dev
 postgres_data_prod
 
